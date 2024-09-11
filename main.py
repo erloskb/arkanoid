@@ -18,6 +18,10 @@ BRICK_WIDTH, BRICK_HEIGHT = 500, 100
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Арканоид")
 
+# Загрузка фонового изображения
+background_image = pygame.image.load("background.jpg")
+background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
+
 # Классы для игровых объектов
 class Paddle:
     def __init__(self):
@@ -84,7 +88,7 @@ def main():
     running = True
     game_active = True
     while running:
-        screen.fill(BLACK)
+        screen.blit(background_image, (0, 0))  # Отображение фонового изображения
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
