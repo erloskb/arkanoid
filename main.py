@@ -11,7 +11,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 PADDLE_WIDTH, PADDLE_HEIGHT = 100, 10
-BALL_SIZE = 10
+BALL_SIZE = 30  # Изменим размер, чтобы соответствовать текстуре мяча
 BRICK_WIDTH, BRICK_HEIGHT = 500, 100
 
 # Настройка окна
@@ -21,6 +21,18 @@ pygame.display.set_caption("Арканоид")
 # Загрузка фонового изображения
 background_image = pygame.image.load("background.jpg")
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
+
+# Загрузка текстуры ракетки
+paddle_image = pygame.image.load("paddle_texture.png")  # Загрузите изображение для ракетки
+paddle_image = pygame.transform.scale(paddle_image, (PADDLE_WIDTH, PADDLE_HEIGHT))  # Масштабируем изображение под размеры ракетки
+
+# Загрузка текстуры кирпича
+brick_image = pygame.image.load("brick_texture.png")  # Загрузите изображение для кирпича
+brick_image = pygame.transform.scale(brick_image, (BRICK_WIDTH, BRICK_HEIGHT))  # Масштабируем изображение под размеры кирпича
+
+# Загрузка текстуры мяча
+ball_image = pygame.image.load("ball_texture.png")  # Загрузите изображение для мяча
+ball_image = pygame.transform.scale(ball_image, (BALL_SIZE, BALL_SIZE))  # Масштабируем изображение под размеры мяча
 
 # Классы для игровых объектов
 class Paddle:
@@ -36,14 +48,14 @@ class Paddle:
             self.rect.x = WIDTH - PADDLE_WIDTH
 
     def draw(self):
-        pygame.draw.rect(screen, WHITE, self.rect)
+        screen.blit(paddle_image, self.rect.topleft)  # Отрисовка текстуры ракетки
 
 class Ball:
     def __init__(self):
         self.reset()
 
     def reset(self):
-        self.rect = pygame.Rect(WIDTH // 2, HEIGHT - 60, BALL_SIZE, BALL_SIZE)
+        self.rect = pygame.Rect(WIDTH // 2, HEIGHT - 100, BALL_SIZE, BALL_SIZE)
         self.speed = [5, -5]  # Скорость по x и y
 
     def move(self):
@@ -56,14 +68,14 @@ class Ball:
             self.speed[1] = -self.speed[1]
 
     def draw(self):
-        pygame.draw.ellipse(screen, WHITE, self.rect)
+        screen.blit(ball_image, self.rect.topleft)  # Отрисовка текстуры мяча
 
 class Brick:
     def __init__(self, x, y):
         self.rect = pygame.Rect(x, y, BRICK_WIDTH, BRICK_HEIGHT)
 
     def draw(self):
-        pygame.draw.rect(screen, GREEN, self.rect)
+        screen.blit(brick_image, self.rect.topleft)  # Отрисовка текстуры кирпича
 
 # Функция для отображения текста
 def display_message(message, y_offset=0, color=RED):
