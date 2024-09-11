@@ -133,8 +133,7 @@ def main():
 
             # Проверка, остались ли кирпичи
             if not bricks:  # Если игрок выиграл
-                display_message("Вы выиграли!", -50, GREEN)  # Сообщение о победе зеленого цвета
-                display_message("Нажмите R, чтобы перезапустить", 50, WHITE)
+        
                 game_active = False
 
             # Отрисовка игровых объектов
@@ -149,10 +148,13 @@ def main():
             text = font.render(score_display, True, WHITE)
             screen.blit(text, (10, 10))  # Отображаем счет в верхнем левом углу
         else:
+            if bricks:
             # Отображение сообщения о проигрыше
-            display_message("Вы проиграли!", -50, RED)
-            display_message("Нажмите R, чтобы перезапустить", 50, WHITE)
-
+                display_message("Вы проиграли!", -50, RED)
+                display_message("Нажмите R, чтобы перезапустить", 50, WHITE)
+            else:
+                display_message("Вы выиграли!", -50, GREEN)  # Сообщение о победе зеленого цвета
+                display_message("Нажмите R, чтобы перезапустить", 50, WHITE)
             # Проверка нажатия клавиши R для перезапуска игры
             keys = pygame.key.get_pressed()
             if keys[pygame.K_r]:
